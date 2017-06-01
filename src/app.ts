@@ -1,17 +1,17 @@
-import {HttpClient} from 'aurelia-fetch-client';
+import {User} from './user';
 
 export class App {
+  users: any;
+
   constructor() {
-    this.request();
-  }
-
-  request() {
-    let httpClient = new HttpClient();
-
-    httpClient.fetch('https://randomuser.me/api/')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      });
+    this.users = [{
+      name: {
+        first: "Toto",
+        last: "Toto"
+      }
+    }]
+    User.fetchUsers().then((users) => {
+      this.users = users;
+    });
   }
 }

@@ -1,5 +1,10 @@
 <template>
-<!--
-  <p repeat for user of users>${user.name.first}</p>
--->
+
+  <div class="user">
+    <p class="name" repeat.for="user of users">
+      <span class="firstname">${user.name.first}</span>
+      <span class="lastname">${user.name.last}</span>
+    </p>
+  </div>
+
 </template>
