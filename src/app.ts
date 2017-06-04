@@ -2,15 +2,12 @@ import {User} from './user';
 
 export class App {
   users: any;
+  userRequest: any;
 
   constructor() {
-    this.users = [{
-      name: {
-        first: "Toto",
-        last: "Toto"
-      }
-    }]
-    User.fetchUsers().then((users) => {
+    this.users = [];
+    this.userRequest = User.fetchUsers();
+    this.userRequest.then((users) => {
       this.users = users;
     });
   }

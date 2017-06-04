@@ -38,18 +38,20 @@ export class User {
      quantity : 10
    }
 
-   let promise = new Promise((resolve, reject) => {
-     let httpClient = new HttpClient();
+   const promise = new Promise((resolve, reject) => {
+     const httpClient = new HttpClient();
      httpClient.fetch(createUrl(requestParameters))
-       .then(response => response.json())
-       .then(data => {
-         var users = [];
-         for (let res of data.results) {
-           let user = new User(res);
-           users.push(user);
-         }
-         resolve(users);
-       });
+      .then(response => response.json())
+      .then(data => {
+        var users = [];
+          for (let res of data.results) {
+            let user = new User(res);
+            users.push(user);
+          }
+        resolve(users);
+      }).catch(err => {
+        reject(new Error(err));
+      });
    });
 
    return promise;
