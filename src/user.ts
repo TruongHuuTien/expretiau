@@ -23,37 +23,44 @@ export class User {
   public name: {
     first: string,
     last: string
-  }
+  };
+  public email: string;
+  public picture: string;
+
+
   constructor(data) {
     this.name = {
       first: data.name.first,
       last: data.name.last
     }
+    this.email = data.email;
+    this.picture = data.picture.medium;
   }
 
- static fetchUsers() {
-   const requestParameters = {
-     url :'https://randomuser.me/api/',
-     fields : ['name'],
-     quantity : 10
-   }
 
-   const promise = new Promise((resolve, reject) => {
-     const httpClient = new HttpClient();
-     httpClient.fetch(createUrl(requestParameters))
-      .then(response => response.json())
-      .then(data => {
-        var users = [];
+  static fetchUsers() {
+    const requestParameters = {
+      url :'https://randomuser.me/api/',
+      fields : ["name", "email", "picture"],
+      quantity : 10
+    }
+
+    const promise = new Promise((resolve, reject) => {
+      const httpClient = new HttpClient();
+      httpClient.fetch(createUrl(requestParameters))
+        .then(response => response.json())
+        .then(data => {
+          var users = [];
           for (let res of data.results) {
             let user = new User(res);
             users.push(user);
           }
-        resolve(users);
-      }).catch(err => {
-        reject(new Error(err));
-      });
-   });
+          resolve(users);
+        }).catch(err => {
+          reject(new Error(err));
+        });
+    });
 
-   return promise;
- }
+    return promise;
+    }
 }
